@@ -70,31 +70,31 @@ if (localStorage.getItem('coins_inc')) {
     mats.coins.inc = parseInt(localStorage.getItem('coins_inc'));
 }
 else {
-    mats.coins.inc = 0;
+    mats.coins.inc = 1;
 }
 if (localStorage.getItem('wood_inc')) {
     mats.wood.inc = parseInt(localStorage.getItem('wood_inc'));
 }
 else {
-    mats.wood.inc = 0;
+    mats.wood.inc = 1;
 }
 if (localStorage.getItem('stone_inc')) {
     mats.stone.inc = parseInt(localStorage.getItem('stone_inc'));
 }
 else {
-    mats.stone.inc = 0;
+    mats.stone.inc = 1;
 }
 if (localStorage.getItem('metal_inc')) {
     mats.metal.inc = parseInt(localStorage.getItem('metal_inc'));
 }
 else {
-    mats.metal.inc = 0;
+    mats.metal.inc = 1;
 }
 if (localStorage.getItem('gems_inc')) {
     mats.gems.inc = parseInt(localStorage.getItem('gems_inc'));
 }
 else {
-    mats.gems.inc = 0;
+    mats.gems.inc = 1;
 }
 if (localStorage.getItem('coins_incps')) {
     mats.coins.incps = parseInt(localStorage.getItem('coins_incps'));
