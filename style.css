@@ -28,9 +28,23 @@ div#materials {
     width: 220px;
     height: 150px;
 }
+div#skills {
+    position: absolute;
+    top: 100px;
+    right: calc(25% - 170px);
+    width: 250px;
+    height: 150px;
+}
+div#costs {
+    position: absolute;
+    top: 350px;
+    right: calc(25% - 170px);
+    width: 250px;
+    height: 150px;
+}
 button#reset {
     position:absolute;
 }
-div button {
+div#actions button {
     width: 90px;
 }
