@@ -103,7 +103,7 @@ if (var_list.length != val_list.length || var_list.length != item_list.length) {
     console.log("ERROR: item lists are not of the same length")
 }
 //  
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 5; i++) { // recalls stored values from local storage
     if (localStorage.getItem(val_list[i])) {
         mats[var_list[i]].value = parseInt(localStorage.getItem(val_list[i]));
     }
@@ -125,7 +125,7 @@ for (let i = 0; i < 5; i++) {
     }
     else {
         if (i == 0) {
-            skills[item_list[i]].power = 1;
+            skills[item_list[i]].power = 1; // wallet level starts at one
         }
         else {
             skills[item_list[i]].power = 0;
