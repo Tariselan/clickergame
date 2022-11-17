@@ -94,101 +94,43 @@ var skills = {
 }
 
 
-if (localStorage.getItem('coins_value')) {
-    mats.coins.value = parseInt(localStorage.getItem('coins_value'));
-}
-else {
-    mats.coins.value = 0;
-}
-if (localStorage.getItem('wood_value')) {
-    mats.wood.value = parseInt(localStorage.getItem('wood_value'));
-}
-else {
-    mats.wood.value = 0;
-}
-if (localStorage.getItem('stone_value')) {
-    mats.stone.value = parseInt(localStorage.getItem('stone_value'));
-}
-else {
-    mats.stone.value = 0;
-}
-if (localStorage.getItem('metal_value')) {
-    mats.metal.value = parseInt(localStorage.getItem('metal_value'));
-}
-else {
-    mats.metal.value = 0;
-}
-if (localStorage.getItem('gems_value')) {
-    mats.gems.value = parseInt(localStorage.getItem('gems_value'));
-}
-else {
-    mats.gems.value = 0;
-}
+var item_list = ['wallet', 'axe', 'pickaxe', 'furnace', 'gem_drill'];
+var var_list = ['coins', 'wood', 'stone', 'metal', 'gems'];
+var val_list = ['coins_value', 'wood_value', 'stone_value', 'metal_value', 'gems_value'];
 
-
-
-if (localStorage.getItem('coins_incps')) {
-    mats.coins.incps = parseInt(localStorage.getItem('coins_incps'));
+//
+if (var_list.length != val_list.length || var_list.length != item_list.length) {
+    console.log("ERROR: item lists are not of the same length")
 }
-else {
-    mats.coins.incps = 0;
-}
-if (localStorage.getItem('wood_incps')) {
-    mats.wood.incps = parseInt(localStorage.getItem('wood_incps'));
-}
-else {
-    mats.wood.incps = 0;
-}
-if (localStorage.getItem('stone_incps')) {
-    mats.stone.incps = parseInt(localStorage.getItem('stone_incps'));
-}
-else {
-    mats.stone.incps = 0;
-}
-if (localStorage.getItem('metal_incps')) {
-    mats.metal.incps = parseInt(localStorage.getItem('metal_incps'));
-}
-else {
-    mats.metal.incps = 0;
-}
-if (localStorage.getItem('gems_incps')) {
-    mats.gems.incps = parseInt(localStorage.getItem('gems_incps'));
-}
-else {
-    mats.gems.incps = 0;
-}
-
-
-
-if (localStorage.getItem('coin_inc')) {
-    skills.wallet.power = parseInt(localStorage.getItem('coin_inc'));
-}
-else {
-    skills.wallet.power = 1;
-}
-if (localStorage.getItem('wood_inc')) {
-    skills.axe.power = parseInt(localStorage.getItem('wood_inc'));
-}
-else {
-    skills.axe.power = 0;
-}
-if (localStorage.getItem('stone_inc')) {
-    skills.pickaxe.power = parseInt(localStorage.getItem('stone_inc'));
-}
-else {
-    skills.pickaxe.power = 0;
-}
-if (localStorage.getItem('metal_inc')) {
-    skills.furnace.power = parseInt(localStorage.getItem('metal_inc'));
-}
-else {
-    skills.furnace.power = 0;
-}
-if (localStorage.getItem('gem_inc')) {
-    skills.gem_drill.power = parseInt(localStorage.getItem('gem_inc'));
-}
-else {
-    skills.gem_drill.power = 0;
+//  
+for (let i = 0; i < 5; i++) {
+    if (localStorage.getItem(val_list[i])) {
+        mats[var_list[i]].value = parseInt(localStorage.getItem(val_list[i]));
+    }
+    else {
+        mats[var_list[i]].value = 0;
+    }
+//----------------------------------------------------------------------//
+    let x = var_list[i] + '_incps';
+    if (localStorage.getItem(x)) {
+        mats[var_list[i]].incps = parseInt(localStorage.getItem(x));
+    }
+    else {
+        mats[var_list[i]].incps = 0;
+    }
+//----------------------------------------------------------------------//
+    let y = var_list[i] + '_inc';
+    if (localStorage.getItem(y)) {
+        skills[item_list[i]].power = parseInt(localStorage.getItem(y));
+    }
+    else {
+        if (i == 0) {
+            skills[item_list[i]].power = 1;
+        }
+        else {
+            skills[item_list[i]].power = 0;
+        }
+    }
 }
 
 /* ========================
@@ -218,8 +160,6 @@ b =>
 4 = gem drill
 */
 
-var item_list = ['wallet', 'axe', 'pickaxe', 'furnace', 'gem_drill'];
-
 
 function hover(a, b) { // a is mouse on or off and b is which item
     let x = '';
@@ -244,15 +184,6 @@ function hover(a, b) { // a is mouse on or off and b is which item
 3 = metal / furnace
 4 = gems / gem drill
 */
-
-var var_list = ['coins', 'wood', 'stone', 'metal', 'gems'];
-var val_list = ['coins_value', 'wood_value', 'stone_value', 'metal_value', 'gems_value'];
-
-//
-if (var_list.length != val_list.length || var_list.length != item_list.length) {
-    console.log("ERROR: item lists are not of the same length")
-}
-//  
 
 const reset_button = () => {
     for (let i = 0; i < var_list.length; i++) {
