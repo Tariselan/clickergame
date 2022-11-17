@@ -204,33 +204,9 @@ functions
 */
 
 function material_click(a) {
-    let x = '';
-    let y = '';
-    let z = '';
-    if (a == 0) {
-        x = 'coins';
-        y = 'wallet';
-    }
-    else if (a == 1) {
-        x = 'wood';
-        y = 'axe';
-    }
-    else if (a == 2) {
-        x = 'stone';
-        y = 'pickaxe';
-    }
-    else if (a == 3) {
-        x = 'metal';
-        y = 'furnace';
-    }
-    else if (a == 4) {
-        x = 'gems';
-        y = 'gem_drill';
-    }
-    z = x + '_value';
-    mats[x].value = parseInt(mats[x].value) + skills[y].power;
-    localStorage.setItem(z, mats[x].value);
-    document.getElementById(x).innerHTML = mats[x].value;
+    mats[var_list[a]].value = parseInt(mats[var_list[a]].value) + skills[item_list[a]].power;
+    localStorage.setItem(val_list[a], mats[var_list[a]].value);
+    document.getElementById(var_list[a]).innerHTML = mats[var_list[a]].value;
 
 }
 /*
