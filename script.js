@@ -246,17 +246,18 @@ var item_list = ['wallet', 'axe', 'pickaxe', 'furnace', 'gem_drill'];
 
 
 function hover(a, b) { // a is mouse on or off and b is which item
+    let x = '';
     if (a == 0) { // hover(0) is for mouseenter
-        for (let i = 0; i = 2; i++) {
-            console.log(i)
+        for (let i = 0; i < 5; i++) {
+            x = var_list[i] + '-cost';
+            document.getElementById(x).innerHTML = skills[item_list[b]].cost[var_list[i]];
         }
     }
     else if (a == 1) { // hover(1) is for mouseleave
-        document.getElementById('coins-cost').innerHTML = 0;
-        document.getElementById('wood-cost').innerHTML = 0;
-        document.getElementById('stone-cost').innerHTML = 0;
-        document.getElementById('metal-cost').innerHTML = 0;
-        document.getElementById('gems-cost').innerHTML = 0;
+        for (let i = 0; i < 5; i++) {
+            x = var_list[i] + '-cost';
+            document.getElementById(x).innerHTML = 0;
+        }
     }
 }
 
