@@ -290,11 +290,9 @@ reset_btn.addEventListener('click', reset_button);
 
 
 const load_values = () => {
-    document.getElementById('coins').innerHTML = mats.coins.value;
-    document.getElementById('wood').innerHTML = mats.wood.value;
-    document.getElementById('stone').innerHTML = mats.stone.value;
-    document.getElementById('metal').innerHTML = mats.metal.value;
-    document.getElementById('gems').innerHTML = mats.gems.value;
+    for (let i = 0; i < 5; i++) {
+        document.getElementById(var_list[i]).innerHTML = mats[var_list[i]].value;
+    }
 }
 /* ========================
 onload functions
