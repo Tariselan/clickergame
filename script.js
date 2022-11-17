@@ -167,69 +167,72 @@ else {
     skills.wallet.power = 1;
 }
 if (localStorage.getItem('wood_inc')) {
-    skills.wallet.power = parseInt(localStorage.getItem('wood_inc'));
+    skills.axe.power = parseInt(localStorage.getItem('wood_inc'));
 }
 else {
-    skills.wallet.power = 1;
+    skills.axe.power = 0;
 }
 if (localStorage.getItem('stone_inc')) {
-    skills.wallet.power = parseInt(localStorage.getItem('stone_inc'));
+    skills.pickaxe.power = parseInt(localStorage.getItem('stone_inc'));
 }
 else {
-    skills.wallet.power = 1;
+    skills.pickaxe.power = 0;
 }
 if (localStorage.getItem('metal_inc')) {
-    skills.wallet.power = parseInt(localStorage.getItem('metal_inc'));
+    skills.furnace.power = parseInt(localStorage.getItem('metal_inc'));
 }
 else {
-    skills.wallet.power = 1;
+    skills.furnace.power = 0;
 }
 if (localStorage.getItem('gem_inc')) {
-    skills.wallet.power = parseInt(localStorage.getItem('gem_inc'));
+    skills.gem_drill.power = parseInt(localStorage.getItem('gem_inc'));
 }
 else {
-    skills.wallet.power = 1;
+    skills.gem_drill.power = 0;
 }
 
 /* ========================
 functions
 ======================== */
 
-const coin_btn_click = () => {
-    mats.coins.value = parseInt(mats.coins.value) + skills.wallet.power;
-    localStorage.setItem('coins_value', mats.coins.value);
-    document.getElementById('coins').innerHTML = mats.coins.value;
-}
-coin_btn.addEventListener('click', coin_btn_click);
+/* VALUES OF 'a'
+0 = coins / wallet
+1 = wood / axe
+2 = stone / pickaxe
+3 = metal / furnace
+4 = gems / gem drill
+*/
 
-const wood_btn_click = () => {
-    mats.wood.value = parseInt(mats.wood.value) + skills.axe.power;
-    localStorage.setItem('wood_value', mats.wood.value);
-    document.getElementById('wood').innerHTML = mats.wood.value;
-}
-wood_btn.addEventListener('click', wood_btn_click);
+function material_click(a) {
+    let x = '';
+    let y = '';
+    let z = '';
+    if (a == 0) {
+        x = 'coins';
+        y = 'wallet';
+    }
+    else if (a == 1) {
+        x = 'wood';
+        y = 'axe';
+    }
+    else if (a == 2) {
+        x = 'stone';
+        y = 'pickaxe';
+    }
+    else if (a == 3) {
+        x = 'metal';
+        y = 'furnace';
+    }
+    else if (a == 4) {
+        x = 'gems';
+        y = 'gem_drill';
+    }
+    z = x + '_value';
+    mats[x].value = parseInt(mats[x].value) + skills[y].power;
+    localStorage.setItem(z, mats[x].value);
+    document.getElementById(x).innerHTML = mats[x].value;
 
-const stone_btn_click = () => {
-    mats.stone.value = parseInt(mats.stone.value) + skills.pickaxe.power;
-    localStorage.setItem('stone_value', mats.stone.value);
-    document.getElementById('stone').innerHTML = mats.stone.value;
 }
-stone_btn.addEventListener('click', stone_btn_click);
-
-const metal_btn_click = () => {
-    mats.metal.value = parseInt(mats.metal.value) + skills.furnace.power;
-    localStorage.setItem('metal_value', mats.metal.value);
-    document.getElementById('metal').innerHTML = mats.metal.value;
-}
-metal_btn.addEventListener('click', metal_btn_click);
-
-const gems_btn_click = () => {
-    mats.gems.value = parseInt(mats.gems.value) + skills.gem_drill.power;
-    localStorage.setItem('gems_value', mats.gems.value);
-    document.getElementById('gems').innerHTML = mats.gems.value;
-}
-gems_btn.addEventListener('click', gems_btn_click);
-
 /*
 b =>
 0 = wallet
@@ -239,47 +242,16 @@ b =>
 4 = gem drill
 */
 
+var item_list = ['wallet', 'axe', 'pickaxe', 'furnace', 'gem_drill'];
+
+
 function hover(a, b) { // a is mouse on or off and b is which item
     if (a == 0) { // hover(0) is for mouseenter
-        console.log('mouse on');
-        if (b == 0) {
-            document.getElementById('coins-cost').innerHTML = skills.wallet.cost.coins;
-            document.getElementById('wood-cost').innerHTML = skills.wallet.cost.wood;
-            document.getElementById('stone-cost').innerHTML = skills.wallet.cost.stone;
-            document.getElementById('metal-cost').innerHTML = skills.wallet.cost.metal;
-            document.getElementById('gems-cost').innerHTML = skills.wallet.cost.gems;
-        }
-        else if (b == 1) {
-            document.getElementById('coins-cost').innerHTML = skills.axe.cost.coins;
-            document.getElementById('wood-cost').innerHTML = skills.axe.cost.wood;
-            document.getElementById('stone-cost').innerHTML = skills.axe.cost.stone;
-            document.getElementById('metal-cost').innerHTML = skills.axe.cost.metal;
-            document.getElementById('gems-cost').innerHTML = skills.axe.cost.gems;
-        }
-        else if (b == 2) {
-            document.getElementById('coins-cost').innerHTML = skills.pickaxe.cost.coins;
-            document.getElementById('wood-cost').innerHTML = skills.pickaxe.cost.wood;
-            document.getElementById('stone-cost').innerHTML = skills.pickaxe.cost.stone;
-            document.getElementById('metal-cost').innerHTML = skills.pickaxe.cost.metal;
-            document.getElementById('gems-cost').innerHTML = skills.pickaxe.cost.gems;
-        }
-        else if (b == 3) {
-            document.getElementById('coins-cost').innerHTML = skills.furnace.cost.coins;
-            document.getElementById('wood-cost').innerHTML = skills.furnace.cost.wood;
-            document.getElementById('stone-cost').innerHTML = skills.furnace.cost.stone;
-            document.getElementById('metal-cost').innerHTML = skills.furnace.cost.metal;
-            document.getElementById('gems-cost').innerHTML = skills.furnace.cost.gems;
-        }
-        else if (b == 4) {
-            document.getElementById('coins-cost').innerHTML = skills.gem_drill.cost.coins;
-            document.getElementById('wood-cost').innerHTML = skills.gem_drill.cost.wood;
-            document.getElementById('stone-cost').innerHTML = skills.gem_drill.cost.stone;
-            document.getElementById('metal-cost').innerHTML = skills.gem_drill.cost.metal;
-            document.getElementById('gems-cost').innerHTML = skills.gem_drill.cost.gems;
+        for (let i = 0; i = 2; i++) {
+            console.log(i)
         }
     }
     else if (a == 1) { // hover(1) is for mouseleave
-        console.log('mouse off');
         document.getElementById('coins-cost').innerHTML = 0;
         document.getElementById('wood-cost').innerHTML = 0;
         document.getElementById('stone-cost').innerHTML = 0;
@@ -288,28 +260,31 @@ function hover(a, b) { // a is mouse on or off and b is which item
     }
 }
 
+/* VALUES OF 'a'
+0 = coins / wallet
+1 = wood / axe
+2 = stone / pickaxe
+3 = metal / furnace
+4 = gems / gem drill
+*/
+
+var var_list = ['coins', 'wood', 'stone', 'metal', 'gems'];
+var val_list = ['coins_value', 'wood_value', 'stone_value', 'metal_value', 'gems_value'];
+
+//
+if (var_list.length != val_list.length || var_list.length != item_list.length) {
+    console.log("ERROR: item lists are not of the same length")
+}
+//  
 
 const reset_button = () => {
-    localStorage.setItem('coins_value', 0);
-    mats.coins.value = localStorage.getItem('coins_value');
-    document.getElementById('coins').innerHTML = mats.coins.value;
-    //
-    localStorage.setItem('wood_value', 0);
-    mats.wood.value = localStorage.getItem('wood_value');
-    document.getElementById('wood').innerHTML = mats.wood.value;
-    //
-    localStorage.setItem('stone_value', 0);
-    mats.stone.value = localStorage.getItem('stone_value');
-    document.getElementById('stone').innerHTML = mats.stone.value;
-    //
-    localStorage.setItem('metal_value', 0);
-    mats.metal.value = localStorage.getItem('metal_value');
-    document.getElementById('metal').innerHTML = mats.metal.value;
-    //
-    localStorage.setItem('gems_value', 0);
-    mats.gems.value = localStorage.getItem('gems_value');
-    document.getElementById('gems').innerHTML = mats.gems.value;
+    for (let i = 0; i < var_list.length; i++) {
+        localStorage.setItem(val_list[i], 0);
+        mats[var_list[i]].value = localStorage.getItem(val_list[i]);
+        document.getElementById(var_list[i]).innerHTML = mats[var_list[i]].value;
+    }
 }
+
 reset_btn.addEventListener('click', reset_button);
 
 
