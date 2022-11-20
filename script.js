@@ -55,7 +55,7 @@ var skills = {
         level: 0,
         power: 0,
         cost: {
-            coins: 5,
+            coins: 6,
             wood: 0,
             stone: 0,
             metal: 0,
@@ -66,8 +66,8 @@ var skills = {
         level: 0,
         power: 0,
         cost: {
-            coins: 5,
-            wood: 5,
+            coins: 12,
+            wood: 3,
             stone: 0,
             metal: 0,
             gems: 0
@@ -77,9 +77,9 @@ var skills = {
         level: 0,
         power: 0,
         cost: {
-            coins: 15,
-            wood: 10,
-            stone: 7,
+            coins: 24,
+            wood: 6,
+            stone: 3,
             metal: 0,
             gems: 0
         }
@@ -88,10 +88,10 @@ var skills = {
         level: 0,
         power: 0,
         cost: {
-            coins: 25,
-            wood: 15,
-            stone: 12,
-            metal: 7,
+            coins: 48,
+            wood: 12,
+            stone: 6,
+            metal: 3,
             gems: 0
         }
     }
@@ -102,19 +102,19 @@ var item_list = ['wallet', 'axe', 'pickaxe', 'furnace', 'gem_drill'];
 var var_list = ['coins', 'wood', 'stone', 'metal', 'gems'];
 var val_list = ['coins_value', 'wood_value', 'stone_value', 'metal_value', 'gems_value'];
 
-//
+// checks if lists containing materials and items are of the same length
 if (var_list.length != val_list.length || var_list.length != item_list.length) {
     console.log("ERROR: item lists are not of the same length")
 }
-//  
-for (let i = 0; i < 5; i++) { // recalls stored values from local storage
+//  recall variables function
+for (let i = 0; i < 5; i++) { // recalls stored material values from local storage
     if (localStorage.getItem(val_list[i])) {
         mats[var_list[i]].value = parseInt(localStorage.getItem(val_list[i]));
     }
     else {
         mats[var_list[i]].value = 0;
     }
-//----------------------------------------------------------------------//
+//---------recalls stored inc per sec values from local storage---------//
     let x = var_list[i] + '_incps';
     if (localStorage.getItem(x)) {
         mats[var_list[i]].incps = parseInt(localStorage.getItem(x));
@@ -122,10 +122,12 @@ for (let i = 0; i < 5; i++) { // recalls stored values from local storage
     else {
         mats[var_list[i]].incps = 0;
     }
-//----------------------------------------------------------------------//
+//----------recalls stored inc + lvl values from local storage----------//
     let y = var_list[i] + '_inc';
+    let z = item_list[i] + '_lvl';
     if (localStorage.getItem(y)) {
         skills[item_list[i]].power = parseInt(localStorage.getItem(y));
+        skills[item_list[i]].level = parseInt(localStorage.getItem(z));
     }
     else {
         if (i == 0) {
@@ -165,11 +167,59 @@ b =>
 4 = gem drill
 */
 
+function skill_price(a) {
+    let x = item_list[a] + '-lvl';
+    skills[item_list[a]].level++;
+    skills[item_list[a]].cost.coins = 3 * Math.floor(2**(skills[item_list[a]].level-1));
+    skills[item_list[a]].cost.wood = 3 * Math.floor(2**(skills[item_list[a]].level-3));
+    skills[item_list[a]].stone = 3 * Math.floor(2**(skills[item_list[a]].level-10));
+    skills[item_list[a]].metal = 3 * Math.floor(2**(skills[item_list[a]].level-31));
+    skills[item_list[a]].gems = 3 * Math.floor(2**(skills[item_list[a]].level-51));
+    skills[item_list[a]].power++;
+    document.getElementById(x).innerHTML = skills[item_list[a]].level;
+}
+
+function bigger_value(a) { // checks if user has enough resources for purchase
+    if (mats.coins.value >= skills[item_list[a]].cost.coins) {
+        if (mats.wood.value >= skills[item_list[a]].cost.wood) {
+            if (mats.stone.value >= skills[item_list[a]].cost.stone) {
+                if (mats.metal.value >= skills[item_list[a]].cost.metal) {
+                    if (mats.gems.value >= skills[item_list[a]].cost.gems) {
+                        return true
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+function skill_buy(a) {
+    for (let i = 0; i < 5; i++) {
+        mats[var_list[i]].value -= skills[item_list[a]].cost[var_list[i]];
+        localStorage.setItem(val_list[i], mats[var_list[i]].value);
+        document.getElementById(var_list[i]).innerHTML = mats[var_list[i]].value;
+    }
+}
+
 function skill_upgrade(a) {
-    if (mats.coins.value >= skills.wallet.cost.coins) {
-        mats.coins.value -= skills.wallet.cost.coins;
-        localStorage.setItem('coins_value', mats.coins.value);
-        document.getElementById('coins').innerHTML = mats.coins.value;
+    if (bigger_value(a)) {
+        skill_buy(a)
+        skill_price(a);
     }
 }
 
@@ -198,7 +248,7 @@ function hover(a, b) { // a is mouse on or off and b is which item
 */
 
 const reset_button = () => {
-    for (let i = 0; i < var_list.length; i++) {
+    for (let i = 0; i < var_list.length; i++) { // resets values of the materials
         localStorage.setItem(val_list[i], 0);
         mats[var_list[i]].value = localStorage.getItem(val_list[i]);
         document.getElementById(var_list[i]).innerHTML = mats[var_list[i]].value;
