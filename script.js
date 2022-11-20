@@ -9,6 +9,10 @@ var metal_btn = document.getElementById('metal-btn');
 var gems_btn = document.getElementById('gems-btn');
 
 var wallet_btn = document.getElementById('wallet-btn');
+var axe_btn = document.getElementById('axe-btn');
+var pickaxe_btn = document.getElementById('pickaxe-btn');
+var furnace_btn = document.getElementById('furnace-btn');
+var gem_drill_btn = document.getElementById('gem_drill-btn');
 
 var reset_btn = document.getElementById('reset');
 
@@ -151,6 +155,7 @@ function material_click(a) {
     document.getElementById(var_list[a]).innerHTML = mats[var_list[a]].value;
 
 }
+
 /*
 b =>
 0 = wallet
@@ -160,6 +165,13 @@ b =>
 4 = gem drill
 */
 
+function skill_upgrade(a) {
+    if (mats.coins.value >= skills.wallet.cost.coins) {
+        mats.coins.value -= skills.wallet.cost.coins;
+        localStorage.setItem('coins_value', mats.coins.value);
+        document.getElementById('coins').innerHTML = mats.coins.value;
+    }
+}
 
 function hover(a, b) { // a is mouse on or off and b is which item
     let x = '';
