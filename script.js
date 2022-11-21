@@ -152,7 +152,7 @@ functions
 */
 
 function material_click(a) {
-    mats[var_list[a]].value = parseInt(mats[var_list[a]].value) + skills[item_list[a]].power;
+    mats[var_list[a]].value = parseInt(mats[var_list[a]].value) + parseInt(skills[item_list[a]].power);
     localStorage.setItem(val_list[a], mats[var_list[a]].value);
     document.getElementById(var_list[a]).innerHTML = mats[var_list[a]].value;
 
@@ -168,14 +168,17 @@ b =>
 */
 
 function skill_price(a) {
-    let x = item_list[a] + '-lvl';
+    let x = item_list[a] + '_lvl';
+    let y = var_list[a] + '_inc';
     skills[item_list[a]].level++;
+    localStorage.setItem(x, skills[item_list[a]].level);
     skills[item_list[a]].cost.coins = 3 * Math.floor(2**(skills[item_list[a]].level-1));
     skills[item_list[a]].cost.wood = 3 * Math.floor(2**(skills[item_list[a]].level-3));
     skills[item_list[a]].stone = 3 * Math.floor(2**(skills[item_list[a]].level-10));
     skills[item_list[a]].metal = 3 * Math.floor(2**(skills[item_list[a]].level-31));
     skills[item_list[a]].gems = 3 * Math.floor(2**(skills[item_list[a]].level-51));
     skills[item_list[a]].power++;
+    localStorage.setItem(y, skills[item_list[a]].power);
     document.getElementById(x).innerHTML = skills[item_list[a]].level;
 }
 
@@ -219,7 +222,7 @@ function skill_buy(a) {
 function skill_upgrade(a) {
     if (bigger_value(a)) {
         skill_buy(a)
-        skill_price(a);
+        skill_price(a);     
     }
 }
 
@@ -248,10 +251,28 @@ function hover(a, b) { // a is mouse on or off and b is which item
 */
 
 const reset_button = () => {
-    for (let i = 0; i < var_list.length; i++) { // resets values of the materials
+    let x = '';
+    let y = '';
+    for (let i = 0; i < 5; i++) { // resets values of the materials
         localStorage.setItem(val_list[i], 0);
         mats[var_list[i]].value = localStorage.getItem(val_list[i]);
         document.getElementById(var_list[i]).innerHTML = mats[var_list[i]].value;
+    }
+    for (let i = 0; i <5; i++) {
+        x = var_list[i] + '_inc';
+        y = item_list[i] + '_lvl';
+        if (i == 0) {
+            localStorage.setItem(x, 1);
+            skills[item_list[i]].power = localStorage.getItem(x);
+            localStorage.setItem(y, 1);
+            skills[item_list[i]].level = localStorage.getItem(y);
+            document.getElementById(y).innerHTML = skills[item_list[i]].level;
+        }
+        else {
+            localStorage.setItem(x, 0);
+            localStorage.setItem(y,0);
+            document.getElementById(y).innerHTML = skills[item_list[i]].level;
+        }
     }
 }
 
@@ -259,8 +280,10 @@ reset_btn.addEventListener('click', reset_button);
 
 
 const load_values = () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) { // loads values of the materials
+        let x = item_list[i] + '_lvl';
         document.getElementById(var_list[i]).innerHTML = mats[var_list[i]].value;
+        document.getElementById(x).innerHTML = skills[item_list[i]].level;
     }
 }
 /* ========================
