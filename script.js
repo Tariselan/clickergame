@@ -172,43 +172,18 @@ function skill_price(a) {
     let y = var_list[a] + '_inc';
     skills[item_list[a]].level++;
     localStorage.setItem(x, skills[item_list[a]].level);
-    skills[item_list[a]].cost.coins = 3 * Math.floor(2**(skills[item_list[a]].level-1));
-    skills[item_list[a]].cost.wood = 3 * Math.floor(2**(skills[item_list[a]].level-3));
-    skills[item_list[a]].stone = 3 * Math.floor(2**(skills[item_list[a]].level-10));
-    skills[item_list[a]].metal = 3 * Math.floor(2**(skills[item_list[a]].level-31));
-    skills[item_list[a]].gems = 3 * Math.floor(2**(skills[item_list[a]].level-51));
+    skills[item_list[a]].cost.coins = 3 * Math.floor(2**(skills[item_list[a]].level-1+a)); // 3 x floor(3^(lvl-1))
+    skills[item_list[a]].cost.wood = 3 * Math.floor(2**(skills[item_list[a]].level-3+a));
+    skills[item_list[a]].cost.stone = 3 * Math.floor(2**(skills[item_list[a]].level-7+a));
+    skills[item_list[a]].cost.metal = 3 * Math.floor(2**(skills[item_list[a]].level-12+a));
+    skills[item_list[a]].cost.gems = 3 * Math.floor(2**(skills[item_list[a]].level-18+a));
     skills[item_list[a]].power++;
     localStorage.setItem(y, skills[item_list[a]].power);
     document.getElementById(x).innerHTML = skills[item_list[a]].level;
 }
 
 function bigger_value(a) { // checks if user has enough resources for purchase
-    if (mats.coins.value >= skills[item_list[a]].cost.coins) {
-        if (mats.wood.value >= skills[item_list[a]].cost.wood) {
-            if (mats.stone.value >= skills[item_list[a]].cost.stone) {
-                if (mats.metal.value >= skills[item_list[a]].cost.metal) {
-                    if (mats.gems.value >= skills[item_list[a]].cost.gems) {
-                        return true
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            return false;
-        }
-    }
-    else {
-        return false;
-    }
+    return (mats.coins.value >= skills[item_list[a]].cost.coins) && (mats.wood.value >= skills[item_list[a]].cost.wood) && (mats.stone.value >= skills[item_list[a]].cost.stone) && (mats.metal.value >= skills[item_list[a]].cost.metal) && (mats.gems.value >= skills[item_list[a]].cost.gems);
 }
 
 function skill_buy(a) {
